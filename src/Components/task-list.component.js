@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import { dom } from '@fortawesome/fontawesome-svg-core'
 import { faEdit, faTrash, faPlus } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import moment from 'moment'
 // Import Bootstrap
 import {Button, Modal } 
         from "react-bootstrap";
@@ -71,6 +72,7 @@ const TaskList = () => {
                             <tr>
                                 <th>Name</th>
                                 <th>Completed</th>
+                                <th>Creación</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -79,6 +81,7 @@ const TaskList = () => {
                                 <tr key={blog.id}>
                                     <td> {blog.name} </td>
                                     <td> {blog.completed ? 'true':'false'} </td>
+                                    <td> {moment(blog.creation_at).format('DD-MM-YYYY')} </td>
                                     <td>
                                         <Link to={`/edit-task/${blog.id}`} className='btn btn-info'>
                                             <FontAwesomeIcon icon={faEdit} />
