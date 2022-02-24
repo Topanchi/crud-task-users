@@ -1,7 +1,7 @@
 
 import axios from 'axios'
-import {useState, useEffect} from 'react'
-import {Link, useNavigate} from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import { dom } from '@fortawesome/fontawesome-svg-core'
 import { faEdit, faTrash, faPlus } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -43,7 +43,7 @@ const TaskList = () => {
 
 
     const [name, setName] = useState('')
-    const [completed, setCompleted] = useState('')
+    //const [completed, setCompleted] = useState('')
     //const navigate = useNavigate()    
     
     //procedimiento guardar
@@ -111,12 +111,6 @@ const TaskList = () => {
                     </div>   
                     <div className='mb-3'>
                         <label className='form-label'>Completed</label>
-                        {/* <input
-                            value={completed}
-                            onChange={ (e)=> setCompleted(e.target.value)} 
-                            type="text"
-                            className='form-control'
-                        />    */}
                         <Switch
                                 isOn={value}
                                 onColor="#47ef4a"

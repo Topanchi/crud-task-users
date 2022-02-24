@@ -2,7 +2,7 @@
 import React from "react";
   
 // Import Bootstrap
-import { Nav, Navbar, Container, Row, Col,NavDropdown } 
+import { Nav, Navbar, Container,NavDropdown } 
         from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.css";
   
@@ -10,7 +10,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import "./App.css";
   
 // Import from react-router-dom
-import { BrowserRouter, Route, Routes, Router, Link } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import CreateTask from "./Components/create-task.component";
 import EditTask from "./Components/edit-task.component";
