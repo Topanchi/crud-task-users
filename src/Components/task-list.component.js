@@ -2,7 +2,7 @@
 import axios from 'axios'
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { dom } from '@fortawesome/fontawesome-svg-core'
+//import { dom } from '@fortawesome/fontawesome-svg-core'
 import { faEdit, faTrash, faPlus } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import moment from 'moment'
@@ -12,35 +12,41 @@ import {Button, Modal }
 import "bootstrap/dist/css/bootstrap.css";
 
 import Switch from "../Shared/switch.component";
+import Pagination from '../Shared/pagination.component';
 
 const URI = 'http://localhost:4000/api/task/'
 
 const TaskList = () => {
+    //para Modal
     const [show, setShow] = useState(false);
+    //para paginado
+    
+    const [currentPage, setCurrentPage] = useState(1);
+    const [tasksPerPage] = useState(10);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
     const [value, setValue] = useState(false);
 
-    const [blogs, setBlog] = useState([])
+    const [tasks, setTask] = useState([])
+
     useEffect( ()=>{
-        getBlogs()
+        getTasks()
     },[])
 
-  //procedimineto para mostrar todos los blogs
-    const getBlogs = async () => {
+    //procedimineto para mostrar todos las tareas
+    const getTasks = async () => {
         const res = await axios.get(URI)
         console.log(res.data)
-        setBlog(res.data)
+        setTask(res.data)
     }
 
-    //procedimineto para eliminar un blog
+    //procedimineto para eliminar un tarea
     const deleteBlog = async (id) => {
         await axios.delete(`${URI}${id}`)
-        getBlogs()
+        getTasks()
     }
-    dom.watch()
 
 
     const [name, setName] = useState('')
@@ -52,14 +58,26 @@ const TaskList = () => {
         e.preventDefault()
         console.log("name task: ",name, "completed task:", value)
         await axios.post(URI, {name: name, completed:value})
-        getBlogs()
+        getTasks()
         handleClose()
     }
 
+    // Get current posts
+    const indexOfLastPost = currentPage * tasksPerPage;
+    const indexOfFirstPost = indexOfLastPost - tasksPerPage;
+    const currentTasks = tasks.slice(indexOfFirstPost, indexOfLastPost);
+
+    // Change page
+    const paginate = pageNumber => setCurrentPage(pageNumber);
+
+
     return (
-        <><div className='container'>
+        <>
+        <div className='container'>
             <div className='row'>
-                <div className='col'><br></br>
+                <div className='col'>
+                    <h1>Tasks list</h1>
+                 
                     <Link to="/create-task" className='btn btn-primary mt-2 mb-2'>
                         <FontAwesomeIcon icon={faPlus} />
                     </Link> &nbsp;
@@ -77,7 +95,7 @@ const TaskList = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {blogs.map((blog) => (
+                            {currentTasks.map((blog) => (
                                 <tr key={blog.id}>
                                     <td> {blog.name} </td>
                                     <td> {blog.completed ? 'true':'false'} </td>
@@ -94,6 +112,14 @@ const TaskList = () => {
                             ))}
                         </tbody>
                     </table>
+                    <div>
+                        <Pagination
+                            tasksPerPage={tasksPerPage}
+                            totalPosts={tasks.length}
+                            paginate={paginate}
+                        />
+                    </div>
+                    
                 </div>
             </div>
         </div>
