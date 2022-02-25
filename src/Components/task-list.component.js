@@ -31,6 +31,16 @@ const TaskList = () => {
 
     const [tasks, setTask] = useState([])
 
+    // Get current posts
+    const indexOfLastPost = currentPage * tasksPerPage;
+    const indexOfFirstPost = indexOfLastPost - tasksPerPage;
+    const currentTasks = tasks.slice(indexOfFirstPost, indexOfLastPost);
+
+    // Change page
+    const paginate = pageNumber => setCurrentPage(pageNumber);
+    console.log("tasksPerPage: ",tasksPerPage)
+    console.log("currentTasks: ",currentTasks)
+
     useEffect( ()=>{
         getTasks()
     },[])
@@ -62,14 +72,7 @@ const TaskList = () => {
         handleClose()
     }
 
-    // Get current posts
-    const indexOfLastPost = currentPage * tasksPerPage;
-    const indexOfFirstPost = indexOfLastPost - tasksPerPage;
-    const currentTasks = tasks.slice(indexOfFirstPost, indexOfLastPost);
-
-    // Change page
-    const paginate = pageNumber => setCurrentPage(pageNumber);
-
+    
 
     return (
         <>
