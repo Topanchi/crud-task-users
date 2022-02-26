@@ -1,6 +1,9 @@
 import React from 'react';
+import { Pagination } 
+        from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.css";
 
-const Pagination = ({ tasksPerPage, totalTasks, paginate }) => {
+const PaginationComponent = ({ tasksPerPage, totalTasks, paginate }) => {
   const pageNumbers = [];
 
   for (let i = 1; i <= Math.ceil(totalTasks / tasksPerPage); i++) {
@@ -8,7 +11,7 @@ const Pagination = ({ tasksPerPage, totalTasks, paginate }) => {
   }
 
   return (
-    <nav>
+     <nav>
       <ul className='pagination'>
         {pageNumbers.map(number => (
           <li key={number} className='page-item'>
@@ -18,8 +21,20 @@ const Pagination = ({ tasksPerPage, totalTasks, paginate }) => {
           </li>
         ))}
       </ul>
-    </nav>
+    </nav>/* ,
+    <div style={{ display: 'block', width: 700, padding: 30 }}>
+      <Pagination>
+        <Pagination.Prev />
+        <Pagination.Ellipsis /> 
+        <Pagination.Item>{1}</Pagination.Item>
+        <Pagination.Item href='!#'>{2}</Pagination.Item>
+        <Pagination.Item>{3}</Pagination.Item>
+        <Pagination.Ellipsis />
+        <Pagination.Next />
+      </Pagination>
+    </div> */
+    
   );
 };
 
-export default Pagination;
+export default PaginationComponent;

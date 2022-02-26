@@ -115,7 +115,9 @@ const TaskList = () => {
                             ))}
                         </tbody>
                     </table>
+                    <br></br>
                     <div>
+                        <p>Se debería ver la paginación</p>
                         <Pagination
                             tasksPerPage={tasksPerPage}
                             totalPosts={tasks.length}
